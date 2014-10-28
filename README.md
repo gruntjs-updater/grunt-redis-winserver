@@ -1,6 +1,6 @@
 # grunt-redis-winserver
 
-> A Grunt plugin for installing, running and controlling a redis server on windows.
+> A grunt plugin for installing, running and controlling a redis server on windows.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -128,6 +128,9 @@ redisconf: {
 ```
 
 ## Release History
+
+### 0.1.2
+- Updated description of project
 
 ### 0.1.1
 - Fixed path to redis-server.exe

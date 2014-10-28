@@ -12,7 +12,7 @@ var path = require('path');
 
 module.exports = function(grunt) {
 
-  grunt.registerMultiTask('redis_server', '', function() {
+  grunt.registerMultiTask('redis_server', 'A grunt plugin for installing, running and controlling a redis server on windows.', function() {
     
     var options = this.options({
       name: 'grunt-redis',
