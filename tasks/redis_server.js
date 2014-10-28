@@ -30,26 +30,39 @@ module.exports = function(grunt) {
       return;
     }
     
+    action = action.toLowerCase();
+    
     if(action !== 'install' && action !== 'start' && action !== 'stop' && action !== 'uninstall') {
       grunt.fail.warn('Unknown action called. Only \'install\', \'start\', \'stop\' and \'uninstall\' are valid.');
       return;
     }
     
+    var redis = path.normalize(__dirname + '\\..\\redis\\redis-server.exe');
     var args = ['--service-'+action, '--service-name', options.name];
-    for(var key in options.redisconf) {
-      args.push('--'+key);
-      args.push(options.redisconf[key]);
+    
+    if(action === 'install') {
+      for(var key in options.redisconf) {
+        args.push('--'+key);
+        args.push(options.redisconf[key]);
+      }
     }
     
     var done = this.async();
     grunt.util.spawn(
-      {
-        cmd: 'redis/redis-server.exe',
-        args: args,
-        stdio: 'inherit'
-      },
+      { cmd: redis, args: args, stdio: 'inherit' },
       function(error, result, code) {
-        grunt.log.writeln(result);
+        var re = / # .*/img;
+        var matches = result.toString().match(re);
+        if(matches !== null) {
+          var msg = matches[0].substring(3);
+          if(msg.indexOf('failed')>0 || msg.indexOf('timed out')>0)
+            grunt.fail.warn(msg);
+          else
+            grunt.log.writeln(msg);
+        }
+        else {
+          grunt.fail.warn('Unexpected result from redis service: \n'+result);
+        }
         done();
       }
     );
