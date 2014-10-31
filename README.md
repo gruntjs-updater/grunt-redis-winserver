@@ -39,10 +39,11 @@ grunt.initConfig({
 
 When calling the task, you need to define what action you with to take with the redis server. These are used as arguments when calling the task target, as `redis_server:your_target:action`, where `your_target` is the name of your target and `action` is any one of the below:
 
-- install
-- start
-- stop
-- uninstall
+- `install`: this will install the service
+- `start`: this will start the service. If service is not installed, a `install` command will be issued first.
+- `stop`: this will stop the service.
+- `uninstall`: this will uninstall the service. If service is running, a `stop` command will be issued first. 
+- `action`: this will log service state (`NOT INSTALLED`, `STOPPED`, `RUNNING`) to console output.
 
 You cannot call more than one action this way, but you can call this task several times in a row by setting up an alias task.  
 
@@ -54,6 +55,12 @@ Type: `String`
 Default value: `'grunt-redis'`
 
 The name of the windows service. Will show up on services.msc on the computer.
+
+#### options.start_retry_count
+Type: `Integer`
+Default value: `3`
+
+Specify the maximum number of automatic tries to start the service. 
 
 #### options.redisconf
 Type: `[Object]`
@@ -128,6 +135,13 @@ redisconf: {
 ```
 
 ## Release History
+
+### 0.2.0
+- Big rewrite to support new functions
+  - New config option: `start_retry_count`. Re-try logic if service do not want to start.
+  - It is now valid to start an uninstalled service, this will issue a install command before starting.
+  - It is now valid to uninstall a running service, this will issue a stop command before uninstalling.
+  - New action supported: `status`. Log the status of the service to console output. 
 
 ### 0.1.2
 - Updated description of project
