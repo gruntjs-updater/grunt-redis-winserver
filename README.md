@@ -39,11 +39,13 @@ grunt.initConfig({
 
 When calling the task, you need to define what action you with to take with the redis server. These are used as arguments when calling the task target, as `redis_server:your_target:action`, where `your_target` is the name of your target and `action` is any one of the below:
 
-- `install`: this will install the service
+- `install`: this will install redis as a windows service
 - `start`: this will start the service. If service is not installed, a `install` command will be issued first.
 - `stop`: this will stop the service.
 - `uninstall`: this will uninstall the service. If service is running, a `stop` command will be issued first. 
-- `action`: this will log service state (`NOT INSTALLED`, `STOPPED`, `RUNNING`) to console output.
+- `status`: this will log service state (`NOT INSTALLED`, `STOPPED`, `RUNNING`) to console output.
+- `run`: Instead of installing the service, you can also run the redis service from grunt. This will lock the console to this command, and you must `ctrl + C` to exit the process.
+
 
 You cannot call more than one action this way, but you can call this task several times in a row by setting up an alias task.  
 
@@ -135,6 +137,10 @@ redisconf: {
 ```
 
 ## Release History
+
+### 0.3.0
+- Separated code to make it more readable
+- Added option to `run` server in process.
 
 ### 0.2.0
 - Big rewrite to support new functions

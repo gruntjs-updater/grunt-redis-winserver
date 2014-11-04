@@ -1,7 +1,7 @@
 {
   "name": "grunt-redis-winserver",
   "description": "A grunt plugin for installing, running and controlling a redis server on windows.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/mbaaz/grunt-redis-winserver",
   "author": {
     "name": "mbaaz",
@@ -28,7 +28,8 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "execSync": "^1.0.2"
+    "execSync": "^1.0.2",
+    "underscore": "^1.7.0"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
